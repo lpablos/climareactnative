@@ -8,10 +8,12 @@ import {
   Animated,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-const Formulario = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState();
+const Formulario = ({busqueda, setBusqueda}) => {
+
+  
   const [count, setCount] = useState(0);
   const [animacionBtn, setAnimacionBtn] = useState(new Animated.Value(1));
+  const {ciudad, pais} = busqueda;
 
   const onPress = () => {
     setCount(count + 1);
@@ -41,8 +43,16 @@ const Formulario = () => {
     <>
       <View style={styles.formulario}>
         <View>
-          <TextInput style={styles.input} placeholder="Ciudad" />
-          <Picker>
+          <TextInput 
+            value={ciudad} 
+            onChangeText={ciudad => setBusqueda({...busqueda, ciudad})}
+            style={styles.input}
+            placeholder="Ciudad"
+          />
+
+          <Picker
+            selectedValue={pais}
+            onValueChange={pais => setBusqueda({...busqueda, pais})}>
             <Picker.Item label="-- Seleccione un país --" value="" />
             <Picker.Item label="Estados Unidos" value="US" />
             <Picker.Item label="México" value="MX" />
